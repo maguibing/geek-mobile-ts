@@ -1,8 +1,13 @@
-import { ThunkAction } from 'redux-thunk'
 import store from '@/store'
-
-// 项目中所有action的类型
-type RootAction = unknown
+import { ThunkAction } from 'redux-thunk'
 
 export type RootState = ReturnType<typeof store.getState>
+
+// 所有action的类型
+export type RootAction = loginAction
+
 export type RootThunkAction = ThunkAction<void, RootState, unknown, RootAction>
+
+export type loginAction = {
+    type: 'login/login'
+}

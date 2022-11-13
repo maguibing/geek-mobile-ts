@@ -1,27 +1,42 @@
-import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { login } from '@/store/actions/login'
+import { loginForm } from '@/types/data'
+import { Button, NavBar, Form, Input } from 'antd-mobile'
+import { useDispatch } from 'react-redux'
 
-import Style from './index.module.scss'
+import styles from './index.module.scss'
 
 const Login = () => {
-	const store = useSelector(state => state)
+    const dispatch = useDispatch()
+    const onFinish = (data: loginForm) => {
+        if (!data.code) return
+        dispatch(login(data))
+    }
 
-	useEffect(() => {
-		console.log(store)
-	})
+    return (
+        <div className={styles.root}>
+            <NavBar></NavBar>
 
-	return (
-		<>
-			<div className={Style.root}>
-				登陆
-				<span>测试</span>
-				<svg className="icon" aria-hidden="true">
-					{/* 使用时，只需要将此处的 iconbtn_like_sel 替换为 icon 的名称即可*/}
-					<use xlinkHref="#iconbtn_like_sel"></use>
-				</svg>
-			</div>
-		</>
-	)
+            <div className="login-form">
+                <h2 className="title">账号登录</h2>
+
+                <Form onFinish={onFinish}>
+                    <Form.Item className="login-item" name="mobile">
+                        <Input placeholder="请输入手机号" />
+                    </Form.Item>
+
+                    <Form.Item className="login-item" name="code">
+                        <Input placeholder="请输入验证码" autoComplete="off" />
+                    </Form.Item>
+
+                    <Form.Item noStyle>
+                        <Button block type="submit" color="primary" className="login-submit">
+                            登 录
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
+        </div>
+    )
 }
 
 export default Login
