@@ -1,25 +1,37 @@
 import { login } from '@/store/actions/login'
 import { loginForm } from '@/types/data'
-import { Button, NavBar, Form, Input } from 'antd-mobile'
+import { Button, NavBar, Form, Input, Toast } from 'antd-mobile'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import styles from './index.module.scss'
 
 const Login = () => {
     const dispatch = useDispatch()
-    const onFinish = (data: loginForm) => {
+    const history = useHistory()
+    const onFinish = async (data: loginForm) => {
         if (!data.code) return
-        dispatch(login(data))
+        await dispatch(login(data))
+        Toast.show({
+            content: '登录成功',
+            afterClose() {
+                history.push('/home')
+            },
+        })
     }
 
     return (
         <div className={styles.root}>
             <NavBar></NavBar>
-
             <div className="login-form">
                 <h2 className="title">账号登录</h2>
-
-                <Form onFinish={onFinish}>
+                <Form
+                    onFinish={onFinish}
+                    initialValues={{
+                        mobile: '15979973954',
+                        code: '246810',
+                    }}
+                >
                     <Form.Item className="login-item" name="mobile">
                         <Input placeholder="请输入手机号" />
                     </Form.Item>
