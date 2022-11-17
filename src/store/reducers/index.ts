@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import { login } from './login'
+import { getUser } from './profile'
 
 const rootReduces = combineReducers({
-    login,
+	login,
+	getUser,
 })
 
 export default rootReduces

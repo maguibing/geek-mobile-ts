@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 
 import Login from './pages/Login'
 import Layout from './pages/Layout'
+import ProfileEdit from './pages/ProfileEdit'
+
 import NotFound from './pages/404'
 
 const App = () => {
@@ -15,6 +17,9 @@ const App = () => {
 						<Redirect exact from="/" to="/login"></Redirect>
 						<Route path="/login">
 							<Login></Login>
+						</Route>
+						<Route path="/profile/edit">
+							<ProfileEdit></ProfileEdit>
 						</Route>
 						<Route path="/home">
 							<Layout></Layout>
